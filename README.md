@@ -32,7 +32,7 @@ dependency because this demo contains only one self-contained DMN model.
 - Gradle 8.14.3 (standard Gradle wrapper)
 - Drools/KIE DMN 10.1.0
 
-![Alt text](<img width="1436" height="406" alt="Screenshot 2026-09-28 at 17 19 07" src="https://github.com/user-attachments/assets/7da47006-a988-4a24-92d6-be290aa536b4" />)
+<img width="1436" height="406" alt="Screenshot 2026-09-28 at 17 19 07" src="https://github.com/user-attachments/assets/7da47006-a988-4a24-92d6-be290aa536b4" />
 ![Alt text]()
 ![Alt text]()
 
