@@ -159,7 +159,7 @@ Expected shape:
 }
 ```
 
-## Team-demo talking point
+## Point to Consider
 
 The Java code does **not** hard-code lending rules such as `if (ltv <= 75)` for product selection. Java supplies application and product facts to the DMN. The DMN owns the decision logic, which makes the business rules much easier to visualise and evolve.
 
