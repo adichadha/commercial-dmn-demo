@@ -162,5 +162,3 @@ Expected shape:
 ## Point to Consider
 
 The Java code does **not** hard-code lending rules such as `if (ltv <= 75)` for product selection. Java supplies application and product facts to the DMN. The DMN owns the decision logic, which makes the business rules much easier to visualise and evolve.
-
-This is intentionally a demo rather than the complete Commercial Lending policy. The same pattern can later be extended to ICR, stress rates, income rules, package affordability and other product-selection criteria.
