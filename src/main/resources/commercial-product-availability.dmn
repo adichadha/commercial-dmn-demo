@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+        xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+        id="commercial-product-availability"
+        name="CommercialProductAvailability"
+        namespace="https://example.com/dmn/commercial/product-availability/v1">
+
+    <inputData id="input-securityClass" name="securityClass">
+        <variable id="var-securityClass" name="securityClass" typeRef="string"/>
+    </inputData>
+    <inputData id="input-repaymentType" name="repaymentType">
+        <variable id="var-repaymentType" name="repaymentType" typeRef="string"/>
+    </inputData>
+    <inputData id="input-ltv" name="ltv">
+        <variable id="var-ltv" name="ltv" typeRef="number"/>
+    </inputData>
+    <inputData id="input-requestedLoan" name="requestedLoan">
+        <variable id="var-requestedLoan" name="requestedLoan" typeRef="number"/>
+    </inputData>
+
+    <inputData id="input-productSecurityClass" name="productSecurityClass">
+        <variable id="var-productSecurityClass" name="productSecurityClass" typeRef="string"/>
+    </inputData>
+    <inputData id="input-productRepaymentType" name="productRepaymentType">
+        <variable id="var-productRepaymentType" name="productRepaymentType" typeRef="string"/>
+    </inputData>
+    <inputData id="input-productMaxLtv" name="productMaxLtv">
+        <variable id="var-productMaxLtv" name="productMaxLtv" typeRef="number"/>
+    </inputData>
+    <inputData id="input-productMinLoan" name="productMinLoan">
+        <variable id="var-productMinLoan" name="productMinLoan" typeRef="number"/>
+    </inputData>
+    <inputData id="input-productMaxLoan" name="productMaxLoan">
+        <variable id="var-productMaxLoan" name="productMaxLoan" typeRef="number"/>
+    </inputData>
+
+    <!-- Decision table 1: category/product matching -->
+    <decision id="decision-basic-match" name="Basic Product Match">
+        <informationRequirement><requiredInput href="#input-securityClass"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-repaymentType"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-productSecurityClass"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-productRepaymentType"/></informationRequirement>
+        <variable id="var-basic-match" name="Basic Product Match" typeRef="boolean"/>
+        <decisionTable id="table-basic-match" hitPolicy="FIRST">
+            <input id="match-security">
+                <inputExpression typeRef="boolean"><text>securityClass = productSecurityClass</text></inputExpression>
+            </input>
+            <input id="match-repayment">
+                <inputExpression typeRef="boolean"><text>repaymentType = productRepaymentType</text></inputExpression>
+            </input>
+            <output id="match-output" typeRef="boolean"/>
+            <rule id="match-rule-1">
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>true</text></inputEntry>
+                <outputEntry><text>true</text></outputEntry>
+            </rule>
+            <rule id="match-rule-2">
+                <inputEntry><text>-</text></inputEntry>
+                <inputEntry><text>-</text></inputEntry>
+                <outputEntry><text>false</text></outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <!-- Decision table 2: final eligibility -->
+    <decision id="decision-eligibility" name="Eligibility">
+        <informationRequirement><requiredDecision href="#decision-basic-match"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-ltv"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-requestedLoan"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-productMaxLtv"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-productMinLoan"/></informationRequirement>
+        <informationRequirement><requiredInput href="#input-productMaxLoan"/></informationRequirement>
+        <variable id="var-eligibility" name="Eligibility"/>
+        <decisionTable id="table-eligibility" hitPolicy="FIRST">
+            <input id="elig-match">
+                <inputExpression typeRef="boolean"><text>Basic Product Match</text></inputExpression>
+            </input>
+            <input id="elig-ltv">
+                <inputExpression typeRef="boolean"><text>ltv &lt;= productMaxLtv</text></inputExpression>
+            </input>
+            <input id="elig-min-loan">
+                <inputExpression typeRef="boolean"><text>requestedLoan &gt;= productMinLoan</text></inputExpression>
+            </input>
+            <input id="elig-max-loan">
+                <inputExpression typeRef="boolean"><text>requestedLoan &lt;= productMaxLoan</text></inputExpression>
+            </input>
+            <output id="elig-output-1" name="eligible" typeRef="boolean"/>
+            <output id="elig-output-2" name="reason" typeRef="string"/>
+
+            <rule id="elig-rule-1">
+                <inputEntry><text>false</text></inputEntry>
+                <inputEntry><text>-</text></inputEntry>
+                <inputEntry><text>-</text></inputEntry>
+                <inputEntry><text>-</text></inputEntry>
+                <outputEntry><text>false</text></outputEntry>
+                <outputEntry><text>"PRODUCT_TYPE_MISMATCH"</text></outputEntry>
+            </rule>
+            <rule id="elig-rule-2">
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>false</text></inputEntry>
+                <inputEntry><text>-</text></inputEntry>
+                <inputEntry><text>-</text></inputEntry>
+                <outputEntry><text>false</text></outputEntry>
+                <outputEntry><text>"LTV_TOO_HIGH"</text></outputEntry>
+            </rule>
+            <rule id="elig-rule-3">
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>false</text></inputEntry>
+                <inputEntry><text>-</text></inputEntry>
+                <outputEntry><text>false</text></outputEntry>
+                <outputEntry><text>"BELOW_MINIMUM_LOAN"</text></outputEntry>
+            </rule>
+            <rule id="elig-rule-4">
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>false</text></inputEntry>
+                <outputEntry><text>false</text></outputEntry>
+                <outputEntry><text>"ABOVE_MAXIMUM_LOAN"</text></outputEntry>
+            </rule>
+            <rule id="elig-rule-5">
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>true</text></inputEntry>
+                <inputEntry><text>true</text></inputEntry>
+                <outputEntry><text>true</text></outputEntry>
+                <outputEntry><text>"ELIGIBLE"</text></outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

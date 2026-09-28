@@ -1,0 +1,52 @@
+[
+  {
+    "productCode": "CI-IO-001",
+    "productName": "Commercial Investment 5 Year Fixed",
+    "securityClass": "COMMERCIAL_INVESTMENT",
+    "repaymentType": "INTEREST_ONLY",
+    "interestRate": 5.25,
+    "maxLtv": 75,
+    "minLoan": 100000,
+    "maxLoan": 2000000
+  },
+  {
+    "productCode": "CI-IO-002",
+    "productName": "Commercial Investment 3 Year Fixed",
+    "securityClass": "COMMERCIAL_INVESTMENT",
+    "repaymentType": "INTEREST_ONLY",
+    "interestRate": 5.10,
+    "maxLtv": 65,
+    "minLoan": 100000,
+    "maxLoan": 1500000
+  },
+  {
+    "productCode": "CI-CR-003",
+    "productName": "Commercial Investment Capital Repayment",
+    "securityClass": "COMMERCIAL_INVESTMENT",
+    "repaymentType": "CAPITAL_AND_INTEREST",
+    "interestRate": 5.40,
+    "maxLtv": 70,
+    "minLoan": 100000,
+    "maxLoan": 2000000
+  },
+  {
+    "productCode": "SC-IO-001",
+    "productName": "Semi Commercial 5 Year Fixed",
+    "securityClass": "SEMI_COMMERCIAL",
+    "repaymentType": "INTEREST_ONLY",
+    "interestRate": 5.55,
+    "maxLtv": 70,
+    "minLoan": 150000,
+    "maxLoan": 1500000
+  },
+  {
+    "productCode": "OO-CR-001",
+    "productName": "Owner Occupied Commercial",
+    "securityClass": "OWNER_OCCUPIER",
+    "repaymentType": "CAPITAL_AND_INTEREST",
+    "interestRate": 5.75,
+    "maxLtv": 65,
+    "minLoan": 150000,
+    "maxLoan": 2500000
+  }
+]

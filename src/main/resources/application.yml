@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: commercial-dmn-demo
+server:
+  port: 8080
