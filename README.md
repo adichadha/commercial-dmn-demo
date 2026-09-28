@@ -33,8 +33,11 @@ dependency because this demo contains only one self-contained DMN model.
 - Drools/KIE DMN 10.1.0
 
 <img width="1436" height="406" alt="Screenshot 2026-09-28 at 17 19 07" src="https://github.com/user-attachments/assets/7da47006-a988-4a24-92d6-be290aa536b4" />
-![Alt text]()
-![Alt text]()
+
+<img width="1438" height="462" alt="Screenshot 2026-09-28 at 17 21 17" src="https://github.com/user-attachments/assets/83cceca9-738a-4c6f-81a0-2936f9a37b17" />
+
+<img width="1439" height="323" alt="Screenshot 2026-09-28 at 17 57 53" src="https://github.com/user-attachments/assets/d18c4e6e-cece-4c69-a719-e8f9b22a42c8" />
+
 
 ## API
 
